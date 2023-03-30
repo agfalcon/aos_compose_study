@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                SurfaceEx("Android")
+                BoxEx()
             }
         }
     }
@@ -118,10 +119,18 @@ fun SurfaceEx(name: String){
     }
 }
 
+@Composable
+fun BoxEx(){
+    Box(){
+        Box(modifier = Modifier.fillMaxSize().size(70.dp).background(Color.Cyan).align(Alignment.CenterStart))
+        Box(modifier = Modifier.size(70.dp).background(Color.Red).align(Alignment.Center))
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        SurfaceEx("Android")
+        BoxEx()
     }
 }
