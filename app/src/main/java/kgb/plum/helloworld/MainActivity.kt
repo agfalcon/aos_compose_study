@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                RowEx()
+                ColumnEx()
             }
         }
     }
@@ -148,10 +148,25 @@ fun RowEx(){
     }
 }
 
+@Composable
+fun ColumnEx(){
+    Column(modifier = Modifier.size(100.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Bottom,
+        ){
+        Text(
+            text = "첫 번째!",
+            modifier = Modifier.align(Alignment.Start)
+        )
+        Text(text = "두 번째!")
+        Text(text = "세 번째!")
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        RowEx()
+        ColumnEx()
     }
 }
