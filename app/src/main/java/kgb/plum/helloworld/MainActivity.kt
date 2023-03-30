@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                ColumnEx()
+                Outer()
             }
         }
     }
@@ -81,7 +81,9 @@ fun ButtonExample(onButtonClicked: () -> Unit) {
 fun ModifierEx(){
     Button(
         onClick = {},
-        modifier = Modifier.size(200.dp).padding(10.dp),
+        modifier = Modifier
+            .size(200.dp)
+            .padding(10.dp),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Cyan,
             contentColor = Color.Magenta
@@ -92,13 +94,15 @@ fun ModifierEx(){
             contentDescription = null,
             modifier = Modifier.background(Color.Blue)
         )
-        Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing)
+        Spacer(modifier = Modifier
+            .size(ButtonDefaults.IconSpacing)
             .background(Color.Blue)
         )
         Text(
             color = Color.Red,
             text = "Search",
-            modifier = Modifier.offset(y = 10.dp)
+            modifier = Modifier
+                .offset(y = 10.dp)
                 .background(Color.Blue)
             )
     }
@@ -123,8 +127,15 @@ fun SurfaceEx(name: String){
 @Composable
 fun BoxEx(){
     Box(){
-        Box(modifier = Modifier.fillMaxSize().size(70.dp).background(Color.Cyan).align(Alignment.CenterStart))
-        Box(modifier = Modifier.size(70.dp).background(Color.Red).align(Alignment.Center))
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .size(70.dp)
+            .background(Color.Cyan)
+            .align(Alignment.CenterStart))
+        Box(modifier = Modifier
+            .size(70.dp)
+            .background(Color.Red)
+            .align(Alignment.Center))
     }
 }
 
@@ -132,17 +143,26 @@ fun BoxEx(){
 fun RowEx(){
     Row(
         verticalAlignment = Alignment.Bottom,
-        modifier = Modifier.height(40.dp).width(200.dp)){
+        modifier = Modifier
+            .height(40.dp)
+            .width(200.dp)){
         Text(text = "첫 번째!",
-            modifier = Modifier.align(Alignment.Top).weight(3f).background(Color.Blue)
+            modifier = Modifier
+                .align(Alignment.Top)
+                .weight(3f)
+                .background(Color.Blue)
             )
         Icon(
             imageVector = Icons.Filled.Add,
             contentDescription = "추가",
-            modifier = Modifier.weight(1f).background(Color.Cyan)
+            modifier = Modifier
+                .weight(1f)
+                .background(Color.Cyan)
         )
         Text(text = "세 번째!",
-            modifier = Modifier.weight(3f).background(Color.Yellow),
+            modifier = Modifier
+                .weight(3f)
+                .background(Color.Yellow),
             textAlign = TextAlign.End
             )
     }
@@ -163,10 +183,28 @@ fun ColumnEx(){
     }
 }
 
+@Composable
+fun Outer(){
+    Column(modifier = Modifier.width(150.dp)){
+        Inner(modifier = Modifier.width(200.dp).height(160.dp))
+        Inner(modifier = Modifier.width(200.dp).height(100.dp))
+    }
+}
+
+@Composable
+fun Inner(modifier: Modifier = Modifier){
+    BoxWithConstraints(modifier) {
+        if(maxHeight > 150.dp){
+            Text(text = "여기 꽤 길군요!", textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.BottomCenter))
+        }
+        Text("maxW:$maxWidth maxH:$maxHeight minW:$minWidth minH:$minHeight")
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        ColumnEx()
+        Outer()
     }
 }
