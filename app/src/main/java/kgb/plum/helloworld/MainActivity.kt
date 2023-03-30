@@ -5,11 +5,14 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,9 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                ButtonExample(onButtonClicked = {
-                    Toast.makeText(this, "Send clicked.", Toast.LENGTH_SHORT).show()
-                })
+                ModifierEx()
             }
         }
     }
@@ -74,10 +75,37 @@ fun ButtonExample(onButtonClicked: () -> Unit) {
     }
 }
 
+@Composable
+fun ModifierEx(){
+    Button(
+        onClick = {},
+        modifier = Modifier.size(200.dp).padding(10.dp),
+        colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Cyan,
+            contentColor = Color.Magenta
+        ),
+    ){
+        Icon(
+            imageVector = Icons.Filled.Search,
+            contentDescription = null,
+            modifier = Modifier.background(Color.Blue)
+        )
+        Spacer(modifier = Modifier.size(ButtonDefaults.IconSpacing)
+            .background(Color.Blue)
+        )
+        Text(
+            color = Color.Red,
+            text = "Search",
+            modifier = Modifier.offset(y = 10.dp)
+                .background(Color.Blue)
+            )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        ButtonExample(onButtonClicked = {})
+        ModifierEx()
     }
 }
