@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                ModifierEx()
+                SurfaceEx("Android")
             }
         }
     }
@@ -102,10 +102,26 @@ fun ModifierEx(){
     }
 }
 
+@Composable
+fun SurfaceEx(name: String){
+    Surface(
+        modifier = Modifier.padding(5.dp),
+        elevation = 10.dp,
+        border = BorderStroke(width = 2.dp, color = Color.Magenta),
+        shape = CircleShape,
+        color = MaterialTheme.colors.error
+    ){
+        Text(
+            text = "Hello $name",
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        ModifierEx()
+        SurfaceEx("Android")
     }
 }
