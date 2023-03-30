@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.Composable
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                BoxEx()
+                RowEx()
             }
         }
     }
@@ -127,10 +128,30 @@ fun BoxEx(){
     }
 }
 
+@Composable
+fun RowEx(){
+    Row(
+        verticalAlignment = Alignment.Bottom,
+        modifier = Modifier.height(40.dp).width(200.dp)){
+        Text(text = "첫 번째!",
+            modifier = Modifier.align(Alignment.Top).weight(3f).background(Color.Blue)
+            )
+        Icon(
+            imageVector = Icons.Filled.Add,
+            contentDescription = "추가",
+            modifier = Modifier.weight(1f).background(Color.Cyan)
+        )
+        Text(text = "세 번째!",
+            modifier = Modifier.weight(3f).background(Color.Yellow),
+            textAlign = TextAlign.End
+            )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        BoxEx()
+        RowEx()
     }
 }
