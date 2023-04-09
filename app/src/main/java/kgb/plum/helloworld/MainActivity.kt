@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                TopBarEx("Android!")
+                ScaffoldEx()
             }
         }
     }
@@ -377,13 +377,51 @@ fun TopBarEx(name: String){
     }
 }
 
+@Composable
+fun CheckBoxWithText(checked: MutableState<Boolean>, title: String){
+    Row(verticalAlignment = Alignment.CenterVertically){
+        Checkbox(checked = checked.value, onCheckedChange = {checked.value = it})
+        Text(text = title, modifier = Modifier.clickable { checked.value = !checked.value })
+    }
+}
+
+@Composable
+fun CheckBoxWithSlot(
+    checked: Boolean,
+    onCheckedChanged: () -> Unit,
+    content: @Composable RowScope.() -> Unit
+){
+    Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable {
+            onCheckedChanged()
+        }
+    ){
+        Checkbox(checked = checked, onCheckedChange = {onCheckedChanged()})
+        content()
+    }
+}
+
+@Composable
+fun SlotEx(){
+    var checked1 by remember { mutableStateOf(false) }
+    var checked2 by remember { mutableStateOf(false) }
+
+    Column{
+        CheckBoxWithSlot(checked = checked1, onCheckedChanged = {checked1 = !checked1}) { Text("텍스트 1") }
+        CheckBoxWithSlot(checked = checked2, onCheckedChanged = {checked2 = !checked2}) { Text("텍스트 2") }
+    }
+}
+
+
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        TopBarEx("Android!")
+        ScaffoldEx()
     }
 }
+
 
 data class CardData(
     val imageUri: String,
