@@ -29,6 +29,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.rememberImagePainter
 import kgb.plum.helloworld.ui.theme.HelloWorldTheme
 import kgb.plum.helloworld.ui.theme.Orange
 
@@ -37,7 +39,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                ImageEx()
+                CoilEx()
             }
         }
     }
@@ -222,10 +224,24 @@ fun ImageEx(){
     }
 }
 
+@Composable
+fun CoilEx(){
+//    val painter = rememberImagePainter(data  = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdemo.ycart.kr%2Fshopboth_farm_max5_001%2Fbbs%2Fview_image.php%3Ffn%3Dhttp%253A%252F%252Fdemo.ycart.kr%252Fshopboth_cosmetics_001%252Fdata%252Feditor%252F1612%252Fcd2f39a0598c81712450b871c218164f_1482469221_493.jpg&psig=AOvVaw3sZjJ0gIAvKjcCMS7ZCi4G&ust=1681086597454000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKiuvt3Fm_4CFQAAAAAdAAAAABAJ")
+//    Column{
+//        Image(
+//            painter = painter,
+//            contentDescription = "엔텔로프 케년"
+//        )
+//    }
+    AsyncImage(model = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory&fname=https://k.kakaocdn.net/dn/EShJF/btquPLT192D/SRxSvXqcWjHRTju3kHcOQK/img.png"
+    , contentDescription = "앤텔로프 캐니언"
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        ImageEx()
+        CoilEx()
     }
 }
