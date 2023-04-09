@@ -1,6 +1,7 @@
 package kgb.plum.helloworld
 
 import android.os.Bundle
+import android.widget.CheckBox
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,7 +18,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,10 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                Column{
-                    CardEx(cardData)
-                    CardEx(cardData)
-                }
+                CheckBoxEx()
 
             }
         }
@@ -282,13 +280,33 @@ fun CardEx(cardData: CardData){
     }
 }
 
+@Composable
+fun CheckBoxEx(){
+    Row(verticalAlignment = Alignment.CenterVertically){
+//        var checked = false
+//        Checkbox(checked = checked,
+//            onCheckedChange = {
+//            checked = !checked
+//        }
+//        )
+        val (checked, setChecked) = remember { mutableStateOf(false)}
+        Checkbox(
+            checked = checked,
+            onCheckedChange = setChecked
+        )
+        Text(text = "프로그래머입니까?"
+        , modifier = Modifier.clickable{
+            setChecked(!checked)
+            }
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        Row{
-            CardEx(cardData)
-        }
+        CheckBoxEx()
     }
 }
 
