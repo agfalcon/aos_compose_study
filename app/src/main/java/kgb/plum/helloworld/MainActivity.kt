@@ -412,6 +412,51 @@ fun SlotEx(){
     }
 }
 
+@Composable
+fun CheckBoxWithContent(
+    checked: Boolean,
+    toggleState: () -> Unit,
+    content: @Composable RowScope.() -> Unit
+){
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable { toggleState() }
+    ){
+        Checkbox(
+            checked = checked,
+            onCheckedChange = {toggleState()}
+        )
+        content()
+    }
+}
+
+@Composable
+fun ScaffoldEx(){
+    var checked by remember { mutableStateOf(false) }
+
+    Scaffold(topBar = {
+        TopAppBar(title = {
+            Text(text = "Scaffold App")
+        }, navigationIcon = {
+            IconButton(onClick = { /*TODO*/ }) {
+                Image(imageVector = Icons.Filled.ArrowBack, contentDescription = "뒤로가기")
+            }
+        }
+        )
+    }, floatingActionButton = {
+        FloatingActionButton(onClick = { /*TODO*/ }) {
+            
+        }
+    }
+    ){
+        Surface(modifier = Modifier.padding(8.dp)){
+            var check by remember{ mutableStateOf(false) }
+            CheckBoxWithContent(check, toggleState = {check = !check}){
+                Text("프로그래머입니까??")
+            }
+        }
+    }
+}
 
 
 @Preview(showBackground = true)
