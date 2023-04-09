@@ -14,10 +14,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Send
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +42,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                TextFieldEx()
+                TopBarEx("Android!")
             }
         }
     }
@@ -322,11 +319,69 @@ fun TextFieldEx(){
     }
 }
 
+@Composable
+fun TopBarEx(name: String){
+    Column{
+        TopAppBar(title = { Text("TopAppBar")},
+            navigationIcon = {
+                IconButton(onClick = {}){
+                    Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "업 네비게이션")
+                }
+            },
+            actions = {
+                IconButton(onClick = {}){
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "검색"
+                    )
+                }
+                IconButton(onClick = {}) {
+                    Icon(
+                        imageVector = Icons.Filled.Settings,
+                        contentDescription = "설정"
+                    )
+                }
+                IconButton(onClick = {}){
+                    Icon(
+                        imageVector = Icons.Filled.AccountBox,
+                        contentDescription = "계정"
+                    )
+                }
+            }
+        )
+        TopAppBar{
+            IconButton(onClick = {}) {
+                Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "업 네비게이션")
+            }
+            Text("TopAppBar", modifier = Modifier.weight(1f))
+            IconButton(onClick = {}){
+                Icon(
+                    imageVector = Icons.Filled.Search,
+                    contentDescription = "검색"
+                )
+            }
+            IconButton(onClick = {}) {
+                Icon(
+                    imageVector = Icons.Filled.Settings,
+                    contentDescription = "설정"
+                )
+            }
+            IconButton(onClick = {}){
+                Icon(
+                    imageVector = Icons.Filled.AccountBox,
+                    contentDescription = "계정"
+                )
+            }
+        }
+        Text(text = "Hello $name!")
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        TextFieldEx()
+        TopBarEx("Android!")
     }
 }
 
