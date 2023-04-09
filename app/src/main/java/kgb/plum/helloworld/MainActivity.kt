@@ -20,7 +20,11 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.compose.rememberImagePainter
+import kgb.plum.helloworld.MainActivity.Companion.cardData
 import kgb.plum.helloworld.ui.theme.HelloWorldTheme
 import kgb.plum.helloworld.ui.theme.Orange
 
@@ -39,9 +44,22 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                CoilEx()
+                Column{
+                    CardEx(cardData)
+                    CardEx(cardData)
+                }
+
             }
         }
+    }
+
+    companion object{
+        val cardData = CardData(
+            imageUri = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory&fname=https://k.kakaocdn.net/dn/EShJF/btquPLT192D/SRxSvXqcWjHRTju3kHcOQK/img.png",
+            imageDescription = "종",
+            author = "김근범",
+            description = "말풍선 안의 종"
+        )
     }
 }
 
@@ -238,10 +256,45 @@ fun CoilEx(){
     )
 }
 
+@Composable
+fun CardEx(cardData: CardData){
+    val placeHolder = Color(0x33000000)
+    Card(
+        elevation = 8.dp,
+        modifier = Modifier.padding(4.dp)
+    ){
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(8.dp)
+        ) {
+            AsyncImage(model = cardData.imageUri,
+                contentScale = ContentScale.Crop,
+                placeholder = ColorPainter(placeHolder),
+                contentDescription = cardData.imageDescription
+            , modifier = Modifier.size(32.dp).clip(CircleShape))
+            Spacer(modifier = Modifier.size(8.dp))
+            Column(){
+                Text(text = cardData.author)
+                Spacer(modifier = Modifier.size(4.dp))
+                Text(text = cardData.description)
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        CoilEx()
+        Row{
+            CardEx(cardData)
+        }
     }
 }
+
+data class CardData(
+    val imageUri: String,
+    val imageDescription: String,
+    val author : String,
+    val description: String
+)
