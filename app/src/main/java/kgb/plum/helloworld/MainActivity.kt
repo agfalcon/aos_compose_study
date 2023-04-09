@@ -45,8 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HelloWorldTheme {
-                CheckBoxEx()
-
+                TextFieldEx()
             }
         }
     }
@@ -269,7 +268,9 @@ fun CardEx(cardData: CardData){
                 contentScale = ContentScale.Crop,
                 placeholder = ColorPainter(placeHolder),
                 contentDescription = cardData.imageDescription
-            , modifier = Modifier.size(32.dp).clip(CircleShape))
+            , modifier = Modifier
+                    .size(32.dp)
+                    .clip(CircleShape))
             Spacer(modifier = Modifier.size(8.dp))
             Column(){
                 Text(text = cardData.author)
@@ -302,11 +303,30 @@ fun CheckBoxEx(){
     }
 }
 
+@Composable
+fun TextFieldEx(){
+    var text by remember { mutableStateOf("Tom") }
+    var email by remember { mutableStateOf("")}
+    Column(modifier = Modifier.padding(16.dp)){
+        TextField(value = text,
+            label = {
+                    Text("이름")
+            },
+            onValueChange = {text = it})
+        Spacer(modifier = Modifier.size(8.dp))
+        Text(text = "Hello $text")
+        Spacer(modifier = Modifier.size(12.dp))
+        OutlinedTextField(value = email, label = {
+                                              Text("이메일")
+        }, onValueChange = {email = it})
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     HelloWorldTheme {
-        CheckBoxEx()
+        TextFieldEx()
     }
 }
 
